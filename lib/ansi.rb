@@ -11,7 +11,7 @@ class ANSI
   end
   
   def read
-    ANSI::Parser.new(@filename)
+    ANSI::Parser.new(:filename => @filename)
   end
   
   def sauce

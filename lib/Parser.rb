@@ -1,6 +1,6 @@
 require("ANSI")
 require("rubygems")
-require("GD")
+# require("GD")
 require("Pixel")
 
 class ANSI::Parser  
@@ -10,7 +10,15 @@ class ANSI::Parser
   S_END       = 3;
   TABSTOP     = 8;
 
-  def initialize(filename)
+  def initialize (args)
+    if args[:filename] != nil
+      contents = File.new(args[:filename], "r")
+    elsif args[:file] != nil
+      contents = args[:file].read
+    else
+      contents = args[:contents]
+    end
+    
     @width=320
     @height=160
 
@@ -18,12 +26,9 @@ class ANSI::Parser
     @x = 0
     @y = 0
 
-    @sauce = Sauce.new(filename)
+    # @sauce = Sauce.new(filename)
 
-    # file = File.new(filename, "r").read()
-    file = File.new(filename, "r")
-    parse(file)
-    file.close
+    parse(contents)
   end
 
 
