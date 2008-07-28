@@ -10,7 +10,7 @@ class ANSI::Parser
   S_END       = 3;
   TABSTOP     = 8;
 
-  def initialize(filename)
+  def initialize(ansi)
     @width=320
     @height=160
 
@@ -18,12 +18,9 @@ class ANSI::Parser
     @x = 0
     @y = 0
 
-    @sauce = Sauce.new(filename)
+    @sauce = Sauce.new(ansi)
 
-    # file = File.new(filename, "r").read()
-    file = File.new(filename, "r")
-    parse(file)
-    file.close
+    parse ansi
   end
 
 

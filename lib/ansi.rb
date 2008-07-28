@@ -4,14 +4,17 @@ require("Parser")
 class ANSI
   attr_accessor :width, :height, :filename
   
-  def initialize(filename)
-    @filename = filename
+  def initialize(ansi)
+    @raw = ansi.read if ansi.respond_to? :read
+    
+    throw unless File.exists ansi
+    @raw = File.read ansi
     
     self.read
   end
   
   def read
-    ANSI::Parser.new(@filename)
+    ANSI::Parser.new(@raw)
   end
   
   def sauce
