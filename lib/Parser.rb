@@ -10,14 +10,7 @@ class ANSI::Parser
   S_END       = 3;
   TABSTOP     = 8;
 
-  def initialize (args)
-    if args[:filename] != nil
-      contents = File.new(args[:filename], "r")
-    elsif args[:file] != nil
-      contents = args[:file].read
-    else
-      contents = args[:contents]
-    end
+  def initialize (contents)
     
     @width=320
     @height=160

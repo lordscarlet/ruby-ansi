@@ -2,16 +2,24 @@ require("sauce")
 require("Parser")
 
 class ANSI
-  attr_accessor :width, :height, :filename
+  attr_accessor :width, :height, :filename, :contents
   
-  def initialize(filename)
-    @filename = filename
+  def initialize(args)
+    if args[:filename] != nil
+      contents = File.new(args[:filename], "r")
+    elsif args[:file] != nil
+      contents = args[:file].read
+    else
+      contents = args[:contents]
+    end
+
+    @contents = contents
     
     self.read
   end
   
   def read
-    ANSI::Parser.new(:filename => @filename)
+    ANSI::Parser.new(@contents)
   end
   
   def sauce
