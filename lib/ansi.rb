@@ -1,5 +1,5 @@
 require("rubygems")
-require("GD")
+# require("GD")
 require("sauce")
 require("statemachine")
 
@@ -25,6 +25,7 @@ class Ansi
   def author
     @sauce.author
   end
+  # TODO: Allow support for passing in the ansi as a string instead of requiring a file
   def initialize(filename)
     @width=320
     @height=160
