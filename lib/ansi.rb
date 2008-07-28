@@ -5,10 +5,17 @@ class ANSI
   attr_accessor :width, :height, :filename
   
   def initialize(ansi)
-    @raw = ansi.read if ansi.respond_to? :read
     
-    throw unless File.exists ansi
-    @raw = File.read ansi
+    if ansi.respond_to? :read
+      @raw = ansi.read
+      
+    elsif ansi =~ /\n/
+      @raw = ansi.to_s
+      
+    else
+      throw unless File.exists ansi
+      @raw = File.read ansi
+    end
     
     self.read
   end
