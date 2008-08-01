@@ -1,7 +1,7 @@
-require("ANSI")
 require("rubygems")
 # require("GD")
 require("Pixel")
+require("ANSI")
 
 class ANSI::Parser  
   S_TXT       = 0;
@@ -12,47 +12,50 @@ class ANSI::Parser
 
   def initialize (contents)
     
-    @width=320
-    @height=160
-
-    @attr = 0
-    @x = 0
-    @y = 0
-
     # @sauce = Sauce.new(filename)
-
+    
+    clear
     parse(contents)
   end
 
+  def clear
+    @width=320
+    @height=160
+
+    @attr, @x, @y, @save_x, @save_y, @attr = 0,0,0,0,0,0
+    @ansi = ANSI.new({})
+    
+    # default to white on black
+    set_attributes([37])
+  end
+
+  def ansi
+    @ansi
+  end
 
   def parse(file)
     state = S_TXT
     argbuf = ""
 
     while ch = file.getc
-      # puts ch.chr
       case state 
       when S_TXT:
-        # puts "S_TXT"
         case ch.chr
         when 0x1a.chr:
           state = S_END
-          # puts "END"
         when 0x1b.chr:
           state = S_CHK_B
         when ?\n.chr:
           new_line
-          puts "new line"
         when ?\r.chr:
           # do nothing
         when ?\t.chr:
-          # tab
+          tab
         else
           store(ch)
         end
 
       when S_CHK_B:
-        #puts "S_CHK_B"
         if (ch.chr != "[")
           store(chr(27))
           store(ch)
@@ -61,7 +64,6 @@ class ANSI::Parser
           state = S_WAIT_LTR
         end
       when S_WAIT_LTR:
-        puts "S_WAIT_LTR"
         if ch.chr =~ /[a-zA-Z]/
           args = argbuf.split(/;/)
           case ch.chr
@@ -109,12 +111,6 @@ class ANSI::Parser
     # image.png final
   end
 
-  def putpixel(x, y)
-    if (:char != nil) 
-      puts "char defined"
-    end
-  end
-
   def store(ch, x = nil, y = nil, attr = @attr)
     if (x != nil and y != nil)
       putpixel(x, y, ch, attr)
@@ -125,10 +121,12 @@ class ANSI::Parser
   end
 
   def putpixel(x, y, ch = nil, attr = nil)
-    puts "putpixel"
     if (ch != nil)
-      pixel = ANSI::Pixel.new(ch, attr)
+      pixel = ANSI::Pixel.new(:char => ch, :attr => attr)
+      ansi.putpixel(x, y, pixel)
     end
+    
+    return ansi.getpixel(x, y)
   end
 
   def set_attributes(args=[])
@@ -150,7 +148,7 @@ class ANSI::Parser
     }
   end
 
-  def set_position(args)
+  def set_position(args=[])
     puts "set_position"
   end
 
@@ -192,6 +190,18 @@ class ANSI::Parser
 
   def new_line
     puts "new_line"
+    @y = @y + 1
+    @x = 0
+  end
+
+  def tab
+    count = @x + 1 % TABSTOP
+    if count
+      count = TABSTOP - count
+      count.times { |i|
+        store(" ")
+      }
+    end
   end
 end
 
