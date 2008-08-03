@@ -23,7 +23,7 @@ class ANSI::Parser
 
     parse(contents)
   end
-
+  
 
   def parse(file)
     state = S_TXT
@@ -150,48 +150,47 @@ class ANSI::Parser
     }
   end
 
-  def set_position(args)
-    puts "set_position"
+  def set_position(args=[])
+    @y = (args[0] != nil ? args[0] : 1) - 1
+    @x = (args[1] != nil ? args[1] : 1) - 1    
   end
 
-  def move_up(args)
-    puts "move_up"
+  def move_up(args=[])
+    @y = @y - (args[0] != nil ? args[0] : 1)
   end
 
-  def move_down(args)
-    puts "move_down"
+  def move_down(args=[])
+    @y = @y + (args[0] != nil ? args[0] : 1)
   end
 
   def move_right(args)
-    puts "move_right"
+    @x = @x + (args[0] != nil ? args[0].to_i : 1)
   end
 
   def move_left(args)
-    puts "move_left"
+    @x = @x - (args[0] != nil ? args[0] : 1)
   end
 
   def save_position(args)
-    puts "save_position"
+    @save_x = @x
+    @save_y = @y
   end
 
   def restore_position(args)
-    puts "restore_position"
+    @x = @save_X
+    @y = @save_y
   end
 
   def clear_screen(args)
-    puts "clear_screen"
-    # clear x, y, attr values
-    # instantiate new 
-
-    # default to white on black
-    set_attributes([37])
+    ansi.clear
   end
   def clear_line(args)
-    puts "clear_line"
+    ansi.clear_line(@y)
   end
 
   def new_line
-    puts "new_line"
+    @y = @y + 1
+    @x = 0
   end
 end
 
