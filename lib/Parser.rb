@@ -15,7 +15,7 @@ class ANSI::Parser
     # @sauce = Sauce.new(filename)
     
     clear
-    parse(contents)
+    parse contents
   end
 
   def clear
