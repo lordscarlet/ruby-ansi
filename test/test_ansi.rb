@@ -4,7 +4,6 @@ require "ansi_to_png"
 
 class TestAnsi < Test::Unit::TestCase
   def test_basic
-<<<<<<< HEAD:test/test_ansi.rb
     filename = File.dirname(__FILE__) + '/sph_love.ans'
     a = ANSI.new(filename)
 
