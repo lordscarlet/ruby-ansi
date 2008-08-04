@@ -1,6 +1,6 @@
 require "test/unit"
 require "ansi"
-require "ansi_to_png"
+# require "ansi_to_png"
 
 class TestAnsi < Test::Unit::TestCase
   def test_basic
