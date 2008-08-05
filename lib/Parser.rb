@@ -1,7 +1,5 @@
-require("rubygems")
-# require("GD")
-require("Pixel")
-require("ANSI")
+require("lib/Pixel")
+require("lib/ANSI")
 
 class ANSI::Parser  
   S_TXT       = 0;

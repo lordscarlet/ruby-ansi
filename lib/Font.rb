@@ -1,3 +1,5 @@
+require("lib/ANSI")
+
 class ANSI::Font
   attr_accessor :width, :height, :characters
   

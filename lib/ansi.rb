@@ -1,6 +1,8 @@
-require("sauce")
-require("Parser")
+require("rubygems")
+# require("sauce")
+require("lib/Parser")
 require("GD")
+require("lib/Font/Eight_by_sixteen")
 
 class ANSI
   attr_accessor :width, :height, :filename, :contents, :sauce
@@ -160,7 +162,7 @@ class ANSI
   
   private 
   def get_gd_font(font=nil)
-    # font = ANSI::Font::8x16.new unless font != nil
+    font = ANSI::Font::Eight_by_sixteen.new unless font != nil
     
     
     return true

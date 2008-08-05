@@ -1,5 +1,5 @@
 require "test/unit"
-require "ansi"
+require "lib/ansi"
 # require "ansi_to_png"
 
 class TestAnsi < Test::Unit::TestCase
