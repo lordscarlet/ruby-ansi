@@ -1,4 +1,3 @@
-require("lib/ANSI")
 require("lib/Font")
 
 class ANSI::Font::Eight_by_sixteen < ANSI::Font

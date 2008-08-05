@@ -1,5 +1,5 @@
-require("lib/Pixel")
 require("lib/ANSI")
+require("lib/Pixel")
 
 class ANSI::Parser  
   S_TXT       = 0;
