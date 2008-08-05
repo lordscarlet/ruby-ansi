@@ -2,7 +2,8 @@ require("rubygems")
 # require("sauce")
 require("lib/Parser")
 require("GD")
-require("lib/Font/Eight_by_sixteen")
+require("lib/Font")
+require("lib/Eight_by_sixteen")
 
 class ANSI
   attr_accessor :width, :height, :filename, :contents, :sauce
