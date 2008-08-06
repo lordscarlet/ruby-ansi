@@ -1,9 +1,12 @@
 h1. ruby-ansi
+
 h2. Install
 
 h3. Install Libpng
 
-h4. MAC http://ethan.tira-thompson.com/Mac%20OS%20X%20Ports.html
+h4. MAC 
+
+http://ethan.tira-thompson.com/Mac%20OS%20X%20Ports.html
 
 h3. Install GD
 
