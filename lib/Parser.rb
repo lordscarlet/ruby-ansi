@@ -1,6 +1,8 @@
 require("lib/Pixel")
 
 class ANSI::Parser  
+  attr_accessor :attr, :x, :y, :save_x, :save_y, :attr
+
   S_TXT       = 0;
   S_CHK_B     = 1;
   S_WAIT_LTR  = 2;

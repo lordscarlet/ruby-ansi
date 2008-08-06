@@ -1,6 +1,5 @@
 require("rubygems")
 # require("sauce")
-require("GD")
 
 class ANSI
   attr_accessor :width, :height, :filename, :contents, :sauce
@@ -150,6 +149,12 @@ class ANSI
     options[:zoom] = 1 unless options[:zoom] != nil
     
     font = get_gd_font(options[:font])
+    height = (font.height / 8 + 0.5).to_i
+    height = 1 unless height
+    width = @width
+    crop = (options[:crop] != nil and options[:crop] > 0 and options[:crop] < @height) ? options[:crop] : @height
+    image = GD::Image.new(width, crop * height)
+    colors = Array.new
     
     # INCOMPLETE
     return true
@@ -161,11 +166,26 @@ class ANSI
   
   private 
   def get_gd_font(font=nil)
-    require("lib/Font")
-    #font = ANSI::Font::Eight_by_sixteen.new unless font != nil
+    require("lib/Font/Eight_by_sixteen")
+    font = ANSI::Font::Eight_by_sixteen.new unless font != nil
     
-    
-    return true
+    require("GD")
+=begin
+I am not sure what this code in Image-ANSI is doing, or how to duplicate it
+if( UNIVERSAL::isa( $font, 'GD::Font' ) ) {
+	return $font;
+}
+elsif( $font =~ /\.fnt$/ ) {
+	return GD::Font->load( $font );
+}
+else {
+	eval "require $font;";
+	croak $@ if $@;
+	$font = $font->new;
+	return $font->as_gd;
+}    
+=end
+    return font
   end
 end
 
