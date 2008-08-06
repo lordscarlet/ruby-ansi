@@ -1,4 +1,3 @@
-require("lib/ANSI")
 require("lib/Pixel")
 
 class ANSI::Parser  

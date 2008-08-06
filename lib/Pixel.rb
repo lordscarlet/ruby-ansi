@@ -1,4 +1,3 @@
-require("lib/ANSI")
 
 class ANSI::Pixel
 # Attribute byte constants
